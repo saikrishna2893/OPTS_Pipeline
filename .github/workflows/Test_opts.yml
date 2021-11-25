@@ -33,8 +33,8 @@ jobs:
     - name: Build the solution
       run:  msbuild Excel_TextAlignment.sln /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" 
       
-    - name: Build
+    #- name: Build
       #run: dotnet build --no-restore
       
-    - name: Test
+    #- name: Test
       #run: dotnet test --no-build --verbosity normal
