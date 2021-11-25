@@ -1,0 +1,14 @@
+-i ..\\input\\Solar_panel.docx,..\\input\\Solar_panel_modified.docx
+-o JenkaLoadOutput_Custom1.docx
+-n 2
+-r 2
+--LoadIterationList 1,2
+-p 2000
+-s 1000
+
+-i ..\\input\\Solar_panel_modified.docx,..\\input\\source_document.docx,..\\input\\destination_document.docx
+-o JenkaLoadOutput_Custom2.xlsx
+--LoadIterationList 5,1,3
+-r 1
+-p 2000
+-s 1000
