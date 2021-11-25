@@ -9,7 +9,7 @@ on:
 jobs:
   build:
 
-    runs-on: windows-latest
+    runs-on: [windows-latest]
 
     steps:
     - uses: actions/checkout@v2
@@ -19,16 +19,19 @@ jobs:
         dotnet-version: 4.0.x
         
     - name: Setup MSBuild Path
-    #- uses: saikrishna2893/OPTS_Pipeline/Setup-MSBuild@v2
+      uses:  microsoft/setup-msbuild@v1.1
     
     - name: Setup NuGet
-    #- uses: NuGet/setup-nuget@v1.0.2
+      uses: NuGet/setup-nuget@v1.0.5
     
+    - name: Restore NuGet packages
+      run: nuget restore Excel_TextAlignment.sln
+      
     - name: Setup Release directory
       run: Compile_testsuite.bat
     
-    - name: Build and Publish the App
-      ##run:  msbuild
+    - name: Build the solution
+      run:  msbuild Excel_TextAlignment.sln /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" 
       
     - name: Build
       #run: dotnet build --no-restore
