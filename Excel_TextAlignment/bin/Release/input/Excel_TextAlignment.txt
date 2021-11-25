@@ -1,0 +1,10 @@
+-i ..\\input\\VoterAnalysis-TextAlignment.xlsm
+-o ResultTextAlignment.xlsm
+-n 2
+-p 2000
+--SeparationPause 2000
+--SheetNumber 1
+--RangeList A1:A400;B1:B400;C1:C400,D1:D400;E1:E400
+--AlignmentTypeList HAlign;HAlign;HAlign,HAlign;HAlign
+--SubAlignmentTypeList Right;Left;Justify,Distributed;Center
+-r 1
