@@ -94,15 +94,37 @@ namespace Helper
         {
             Dictionary<string, string> defaultTopargs = new Dictionary<string, string>();
             defaultTopargs.Add("StartupPause", "2000");
-            defaultTopargs.Add("Display", "2");
+            defaultTopargs.Add("Display", "1");
             defaultTopargs.Add("DisplayHeight", "700");
             defaultTopargs.Add("DisplayWidth", "1200");
 
+            defaultTopargs.Add("runs", "1");
+            defaultTopargs.Add("verbose", "True");
+            defaultTopargs.Add("scriptversion", "none");
+            defaultTopargs.Add("on-measure-start", "True");
+            defaultTopargs.Add("on-measure-stop", "True");
+            defaultTopargs.Add("results-directory", "..\\output");
+            defaultTopargs.Add("TopHelp", "False");
+
             return defaultTopargs;
+        }
+
+        public static Dictionary<string, string> DefaultTopArgumentsPair()
+        {
+            Dictionary<string, string> defaultTopargsPair = new Dictionary<string, string>();
+
+            defaultTopargsPair.Add("-r", "--runs");
+            defaultTopargsPair.Add("-v", "--verbose");
+            defaultTopargsPair.Add("-V", "--scriptversion");
+            defaultTopargsPair.Add("-a","--on-measure-start");
+            defaultTopargsPair.Add("-b", "--on-measure-stop");
+            defaultTopargsPair.Add("-R","--results-directory");
+            
+            return defaultTopargsPair;
 
         }
-        
-        
+
+
         internal static string GetArgumentValues(string argName, string argument)
         {            
             
@@ -136,8 +158,37 @@ namespace Helper
                 {
                     options.DisplayWidth = Convert.ToDouble(GetArgumentValues("DisplayWidth", argument));
                 }
-                
-
+                //
+                if (argument.StartsWith("--runs="))
+                {
+                    options.runs = Convert.ToInt32(GetArgumentValues("runs", argument));
+                }                
+                if (argument.StartsWith("--scriptversion="))
+                {
+                    options.scriptversion = GetArgumentValues("scriptversion", argument);
+                }                
+                if (argument.StartsWith("--TopHelp="))
+                {
+                    bool checkHelp = false;
+                    checkHelp = Convert.ToBoolean(GetArgumentValues("TopHelp", argument));
+                    // does nothing
+                }                
+                if (argument.StartsWith("--verbose="))
+                {
+                    options.Verbose = GetArgumentValues("verbose", argument);
+                }                
+                if (argument.StartsWith("--on-measure-start="))
+                {
+                    options.onMeasureStart = GetArgumentValues("on-measure-start", argument);
+                }                
+                if (argument.StartsWith("--on-measure-stop="))
+                {
+                    options.onMeasureStop = GetArgumentValues("on-measure-stop", argument);
+                }                
+                if (argument.StartsWith("--results-directory="))
+                {
+                    options.resultsDirectory = GetArgumentValues("results-directory", argument);
+                }                
             }
         }
 
@@ -164,6 +215,19 @@ namespace Helper
 
             return argument;
         }
+        internal static string RenameArgument(string argument)
+        {
+            Dictionary<string, string>  argsPair = DefaultTopArgumentsPair();
+            if (argsPair.ContainsKey(argument))
+            {
+                return argsPair[argument];
+            }
+            else
+            {
+                return argument;
+            }
+            
+        }
         internal static string[] CleanArguments(string[] args)
         {   
             List<string> cleandArgs = new List<string>();
@@ -173,9 +237,9 @@ namespace Helper
             foreach (string argument in args)
             {
                 // handles following cases
-                // case 1:when top leavel arguments are not given 
+                // case 1: when top leavel arguments are not given 
                 // case 2: when top level argument is not given and its given in custom case
-                // case 3:  when top level argument is given and its given in custom case
+                // case 3: when top level argument is given and its given in custom case
 
                 // if argument starts and ends at -- and = remove it 
                 if ((argument.StartsWith("--") && argument.EndsWith("=") )  )
@@ -185,22 +249,21 @@ namespace Helper
                 }
                 else
                 {
+                    // handling single arguments 
+                    // case 1: its is -r it will convert to --runs
+                    string argumentMod = RenameArgument(argument);
                     // check if two time a argument is defined and ignore is its added in custom case : preference given to Top level script
-
-                    if (CheckForDuplicates(inputArgs, GetArgumentName(argument)))
+                    
+                    if (CheckForDuplicates(inputArgs, GetArgumentName(argumentMod)))
                     {
-                        cleandArgs.Add(argument);
+                        cleandArgs.Add(argumentMod);
                     }
 
-                    inputArgs.Add(GetArgumentName(argument));
+                    inputArgs.Add(GetArgumentName(argumentMod));
                 }
 
-                
-
             }
-
-            
-
+                        
             return cleandArgs.ToArray();
         }
         public static void IterationEnd(string operationName, int iter, Logger.LogData logData, Logger.Settings set, int IterationPause)

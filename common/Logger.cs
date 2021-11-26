@@ -226,6 +226,10 @@ namespace Helper
 
             string sysPath = Path.GetFullPath(resultsDirectory);
             string outputPath = sysPath + "\\";
+            if (!Directory.Exists(outputPath))
+            {
+                Directory.CreateDirectory(outputPath);
+            }                
             logData.Benchmark = Logger.LogBenchMark(benchMarkName: benchMarkName, version: officeSuiteVersion, msofficeVersion: null);
             logData.Logging = new List<Logger.LoggingStruct>();
             logData.IterationTimings = new List<Logger.IterationTimingsStruct>();

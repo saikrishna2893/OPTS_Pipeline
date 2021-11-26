@@ -8,6 +8,7 @@ set ReleasePath=%defaultPath%\Release_%version%
 
 set runPath=%ReleasePath%\run
 set workloadsPath=%ReleasePath%\workloads
+set commonPath=%workloadsPath%\common
 set resultsPath=%ReleasePath%\results
 echo %defaultPath%
 
@@ -15,6 +16,7 @@ if not exist %ReleasePath% mkdir %ReleasePath%
 if not exist %runPath% mkdir %runPath%
 if not exist %workloadsPath% mkdir %workloadsPath%
 if not exist %resultsPath% mkdir %resultsPath%
+if not exist %commonPath% mkdir %commonPath%
 
 set Identifier=false
 
@@ -49,8 +51,10 @@ REM Print Workload path
 	cd %defaultPath%
 )
 
-copy %defaultPath%\*MSOffice_Test_Automation.bat* %runPath%
-copy %defaultPath%\common\*.wprp* %runPath%
+copy %defaultPath%\MSOffice_Test_Automation*.bat* %runPath%
+copy %defaultPath%\common\*.wprp* %commonPath%
+if exist %defaultPath%\common\HelpText.txt copy %defaultPath%\common\HelpText.txt %commonPath%
+if exist %defaultPath%\common\manifest.xml copy %defaultPath%\common\manifest.xml %ReleasePath%
 ENDLOCAL
 )
 
