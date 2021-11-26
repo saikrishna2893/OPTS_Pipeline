@@ -37,8 +37,8 @@ jobs:
       run: ".\\Compile_testsuite.bat"
       #run: Compile_testsuite.bat
     
-    #- name: Build the solution
-      #run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" 
+    - name: Build the solution
+      run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" 
       
     #- name: Build
       #run: dotnet build --no-restore
