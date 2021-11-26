@@ -19,9 +19,9 @@ jobs:
     # CLI for Microsoft 365 login action
     - name: Login to tenant
       uses: pnp/action-cli-login@v2.0.0
-      with:
-        ADMIN_USERNAME:  ${{ secrets.ADMIN_USERNAME }}
-        ADMIN_PASSWORD:  ${{ secrets.ADMIN_PASSWORD }}
+      #with:
+        #ADMIN_USERNAME:  ${{ secrets.ADMIN_USERNAME }}
+        #ADMIN_PASSWORD:  ${{ secrets.ADMIN_PASSWORD }}
         
     - name: Setup MSBuild Path
       uses:  microsoft/setup-msbuild@v1.1
