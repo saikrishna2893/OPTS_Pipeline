@@ -16,6 +16,10 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
     
+    - name: Register for client
+      shell: cmd
+      run: Register-PnPManagementShellAccess -ShowConsentUrl -TenantName secrets.ADMIN_USERNAME
+      
     # CLI for Microsoft 365 login action
     - name: Login to tenant
       uses: pnp/action-cli-login@v2.0.0
