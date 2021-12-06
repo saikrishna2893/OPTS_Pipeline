@@ -16,21 +16,26 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
     
+    #- name: Register for client
+      #shell: cmd
+      #run: Register-PnPManagementShellAccess -ShowConsentUrl -TenantName secrets.ADMIN_USERNAME
+      
     # CLI for Microsoft 365 login action
-    - name: Login to tenant
-      uses: pnp/action-cli-login@v2.0.0
+    #- name: Login to tenant
+      #uses: pnp/action-cli-login@v2.0.0
       #with:
         #ADMIN_USERNAME:  ${{ secrets.ADMIN_USERNAME }}
         #ADMIN_PASSWORD:  ${{ secrets.ADMIN_PASSWORD }}
         
     - name: Setup MSBuild Path
-      uses:  microsoft/setup-msbuild@v1.1
+      uses:  microsoft/setup-msbuild@v1.0.2
     
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
     
     - name: Restore NuGet packages
-      run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" #Excel_TextAlignment.sln
+      #run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" #Excel_TextAlignment.sln
+      run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
       
     - name: Setup Release directory
       shell: cmd
