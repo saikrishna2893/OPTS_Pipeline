@@ -27,8 +27,8 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
     
     - name: Restore NuGet packages
-      #run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" #Excel_TextAlignment.sln
-      run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
+      run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" #Excel_TextAlignment.sln
+      #run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
       
     - name: Setup Release directory
       shell: sh
