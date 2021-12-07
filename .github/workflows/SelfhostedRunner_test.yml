@@ -17,4 +17,4 @@ jobs:
       uses: actions/setup-dotnet@v1
     
     - name: Run information
-    - run: echo "Hello from Self hosted runner on Desktop-JUL!"
+      run: echo "Hello from Self hosted runner on Desktop-JUL!"
