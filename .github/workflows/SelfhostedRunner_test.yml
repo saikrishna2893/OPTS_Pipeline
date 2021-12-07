@@ -19,3 +19,22 @@ jobs:
     - name: Run information
       shell: sh
       run: echo "Hello from Self hosted runner on Desktop-JUL!"
+      
+    - name: Setup MSBuild Path
+      uses:  microsoft/setup-msbuild@v1.0.2
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+    
+    - name: Restore NuGet packages
+      #run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" #Excel_TextAlignment.sln
+      run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
+      
+    - name: Setup Release directory
+      shell: sh
+      run: ".\\Compile_testsuite.bat"
+      #run: Compile_testsuite.bat
+    
+    - name: Build the solution
+      run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" 
+
