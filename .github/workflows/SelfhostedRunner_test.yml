@@ -13,18 +13,18 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
+    #- name: Setup .NET
+      #uses: actions/setup-dotnet@v1
     
     - name: Run information
       shell: sh
       run: echo "Hello from Self hosted runner on Desktop-JUL!"
       
-    - name: Setup MSBuild Path
-      uses:  microsoft/setup-msbuild@v1.0.2
+    #- name: Setup MSBuild Path
+      #uses:  microsoft/setup-msbuild@v1.0.2
     
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.5
+    #- name: Setup NuGet
+      #uses: NuGet/setup-nuget@v1.0.5
     
     - name: Restore NuGet packages
       shell: sh
@@ -36,16 +36,16 @@ jobs:
       #run: ".\\Compile_testsuite.bat"
       #run: Compile_testsuite.bat
       
-    - name: Setup MSBuild path
-      shell: sh
-      run: "set PATH=%PATH%;C:\Program Files (x86)\ Microsoft Visual Studio\ 2019\ Community\ Common7\ Tools;"
+    #- name: Setup MSBuild path
+      #shell: sh
+      #run: "set PATH=%PATH%;C:\Program Files (x86)\ Microsoft Visual Studio\ 2019\ Community\ Common7\ Tools;"
     
-    - name: Setup MSBuild path
-      shell: sh
-      run: "VsMSBuildCmd.exe"
+    #- name: Setup MSBuild path
+      #shell: sh
+      #run: "VsMSBuildCmd.exe"
     
     - name: Build the solution
-      shell: sh
+      #shell: sh
       working-directory: ".\\Word_JenkaLoad"
       run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
