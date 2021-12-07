@@ -47,12 +47,17 @@ jobs:
     - name: Setup MSBuild Path
       uses:  microsoft/setup-msbuild@v1.0.2
     
-    - name: Build the solution
+    - name: Setting Path
       shell: sh
-      working-directory: ".\\Word_JenkaLoad" 
+      working-directory: ".\\Word_JenkaLoad"
+      run: echo %path%
+      
       #run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
       #run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ".\\Word_JenkaLoad.sln"
-      run: MSBuild .\\Word_JenkaLoad.sln /p:Configuration=Release /p:Platform="Any CPU"
+      
+    - name: Build the solution
+      shell: sh
+      run: MSBuild.exe .\\Word_JenkaLoad.sln #/p:Configuration=Release /p:Platform="Any CPU"
 
