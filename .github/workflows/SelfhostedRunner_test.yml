@@ -27,6 +27,7 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
     
     - name: Restore NuGet packages
+      shell: sh
       run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" #Excel_TextAlignment.sln
       #run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
       
@@ -36,5 +37,6 @@ jobs:
       #run: Compile_testsuite.bat
     
     - name: Build the solution
+      shell: sh
       run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU" 
 
