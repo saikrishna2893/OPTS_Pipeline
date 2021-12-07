@@ -35,6 +35,14 @@ jobs:
       #shell: sh
       #run: ".\\Compile_testsuite.bat"
       #run: Compile_testsuite.bat
+      
+    - name: Setup MSBuild path
+      shell: sh
+      run: "set PATH=%PATH%;C:\Program Files (x86)\ Microsoft Visual Studio\ 2019\ Community\ Common7\ Tools;"
+    
+    - name: Setup MSBuild path
+      shell: sh
+      run: "VsMSBuildCmd.exe"
     
     - name: Build the solution
       shell: sh
