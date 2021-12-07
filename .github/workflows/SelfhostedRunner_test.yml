@@ -27,7 +27,7 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
     
     - name: Restore NuGet packages
-      #shell: sh
+      shell: sh
       run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln"
       #run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
       
@@ -48,7 +48,7 @@ jobs:
       uses:  microsoft/setup-msbuild@v1.0.2
     
     - name: Build the solution
-      #shell: sh
+      shell: sh
       working-directory: ".\\Word_JenkaLoad" 
       run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
