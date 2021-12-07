@@ -13,7 +13,7 @@ using Excel = Microsoft.Office.Interop.Excel;
 using Word = Microsoft.Office.Interop.Word;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using Outlook = Microsoft.Office.Interop.Outlook;
-//using Microsoft.Office.Core;
+using Microsoft.Office.Core;
 
 using Workload;
 
@@ -838,7 +838,7 @@ namespace Helper
             app = new PowerPoint.Application
             {
                 DisplayAlerts = PowerPoint.PpAlertLevel.ppAlertsNone,
-                //Visible = MsoTriState.msoTrue
+                Visible = MsoTriState.msoTrue
             };
 
             set.previousFullScreenSetting = (int)app.WindowState;
