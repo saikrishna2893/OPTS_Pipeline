@@ -1,0 +1,20 @@
+name: SelfhostedRunner Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: self-hosted
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+    
+    - name: Run information
+    - run: echo "Hello from Self hosted runner on Desktop-JUL!"
