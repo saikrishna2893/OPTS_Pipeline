@@ -13,22 +13,22 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
-    #- name: Setup .NET
-      #uses: actions/setup-dotnet@v1
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
     
     - name: Run information
       shell: sh
       run: echo "Hello from Self hosted runner on Desktop-JUL!"
       
-    #- name: Setup MSBuild Path
-      #uses:  microsoft/setup-msbuild@v1.0.2
+    - name: Setup MSBuild Path
+      uses:  microsoft/setup-msbuild@v1.0.2
     
-    #- name: Setup NuGet
-      #uses: NuGet/setup-nuget@v1.0.5
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
     
     - name: Restore NuGet packages
       shell: sh
-      run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" #Excel_TextAlignment.sln
+      run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln"
       #run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
       
     #- name: Setup Release directory
