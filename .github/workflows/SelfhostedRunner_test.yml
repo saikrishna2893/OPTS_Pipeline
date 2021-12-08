@@ -50,7 +50,7 @@ jobs:
     - name: Setting Path
       shell: sh
       working-directory: ".\\Word_JenkaLoad"
-      run: "Get-Location"
+      run: echo $PATH
       
       #run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
