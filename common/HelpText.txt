@@ -1,0 +1,14 @@
+Long format		<-> Short format<->	Description 
+
+--results-directory	<->	-r	<->	Path to directory to storeWrapper result fileWrapper log fileApplication raw resultsApplication log files
+--on-measure-stop	<->	-b	<->	Blocking command to execute after the measurement period. Ideally should exclude deinitialization
+--on-measure-start	<->	-a	<->	Blocking command to execute before the measurement period. Ideally should exclude Initialization
+--verbose		<->	-v	<->	Turn on verbose logging
+--help			<->	-h	<->	Lists command line usage
+--scriptversion		<->	-V	<-> 	Wrapper script version.
+--runs			<->	-r	<->	Number of times to run the application
+--StartupPause		<->	None	<-> Sleep time between application start and workload execution
+--Display		<->	None	<-> Display fullscreen setting: 1 (Full Screen) or 2 (custom window)
+--DisplayHeight		<->	None	<-> Display screen height
+--DisplayWidth		<->	None	<-> Display screen width
+

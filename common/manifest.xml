@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workload>	
+
+	<!-- Workload Wrapper Version -->
+	<Version>1.0</Version>
+
+	<!-- Allowed Distribution Audience Internal, NDA, Public (Public would imply NDA and Internal, etc.) -->
+	<Distribution>Internal</Distribution>
+	
+	<PropertyGroup>
+
+        <!-- Version -->
+        <MAJOR_VERSION Condition=" '$(MAJOR_VERSION)' == '' ">1</MAJOR_VERSION>
+        <MINOR_VERSION Condition=" '$(MINOR_VERSION)' == '' ">0</MINOR_VERSION>
+        
+        <ReleaseFolderName>Release_$(MAJOR_VERSION)_$(MINOR_VERSION)</ReleaseFolderName>
+        
+        <!-- AssemblyInfo versions, these are regular expressions for replace, so escape the dot -->
+        <AssemblyVersion>9\.9\.9\.9</AssemblyVersion>
+        <AssemblyFileVersion>9\.9\.9\.9</AssemblyFileVersion>
+		<assemblyIdentity version="1.0.0.0" name="Office Performance Test Suite" />
+			<security>
+				<requestedExecutionLevel level="requireAdministrator" uiAccess="false" />
+			</security>
+
+    </PropertyGroup>
+
+	<DirectoryGroup>
+    
+    <!-- Paths -->
+    <ReleaseDir>$(MSBuildThisFileDirectory)</ReleaseDir>
+    <ResultsDir>$(ReleaseDir)results\</ResultsDir>
+    <RunsDir>$(ReleaseDir)runs\</RunsDir>
+    <WorkloadsDir>$(ReleaseDir)workloads\</WorkloadsDir>
+    <CommonDir>$(WorkloadsDir)\common</CommonDir>
+    <WorkloadDir>$(WorkloadsDir)$(BenchmarkName)\</WorkloadDir>
+    <BinaryDir>$(WorkloadDir)\bin</BinaryDir>
+    <InputDir>$(WorkloadDir)\input</InputDir>
+    
+	</DirectoryGroup>
+
+	<!-- Files To run the workloads -->
+	<runScripts>
+    
+		<runScript description="Runs all tests">
+      
+      <script>runs\MSOffice_Test_Automation.bat</script>
+			<case1 name="Default input parameters">set default=1</case1>
+			<case2 name="Custom input parameters">set default=2</case2>
+      
+      <arguments>
+        
+        <argumentSet>
+          <argument helptext="Time in ms">--StartupPause=2500</argument>
+          <argument helptext="1 for fullscreen and 2 for specified height and width">--Display=1</argument>
+        </argumentSet>
+        
+        <argumentSet>
+          <argument helptext="Time in ms">--StartupPause=2500</argument>
+          <argument helptext="1 for fullscreen and 2 for specified height and width">--Display=2</argument>
+          <argument helptext="Height of the application window">--DisplayHeight=700</argument>
+          <argument helptext="Width of the application window">--DisplayWidth=1200</argument>
+        </argumentSet>
+        
+      </arguments>
+    </runScript>
+    
+	</runScripts>
+
+
+	<!-- Workload Info to optionally display to the User -->
+	<WorkloadInfo type="C#">Office Performance Test Suite</WorkloadInfo>
+
+	<!-- Owner of the Workload -->
+	<OwnerEmail>anshu.arya@amd.com</OwnerEmail>
+
+	<!-- To be filled by AMD-->>
+
+	<!-- Workload Wrapper Version -->
+	<Version>1.0</Version>
+
+  <!-- List of sites where this workload can not be exported -->
+	<RestrictedSites>
+	</RestrictedSites>
+	
+  <!-- Nonintrusive checks that must be met in order to run the workload -->
+  <Constraints>
+    <Constraint name="Verify sufficient Memory" timeout="300" severity="Warn">
+      <arguments>--size=4gb</arguments>
+      <script>constraints/memcheck.bat</script>
+    </Constraint>
+    <Constraint name="Verify sufficient Cores" timeout="300" severity="Warn">
+      <arguments>--corecount=2</arguments>
+      <script>constraints/cpu_core_check.bat</script>
+    </Constraint>
+  </Constraints>
+  
+	<!-- Setup script, will get passed the setup parameters -->
+	<Setup timeout="300">setups/wrapper1_setup.exe</Setup>
+	
+	<!-- Set of all possible parameters for the setup executable -->
+	<SetupParameters>
+		<!-- HTML parameter form definition goes here -->
+	</SetupParameters>
+	
+	<!-- Workload Info to optionally display to the User -->
+	<WorkloadInfo type="C#">Office Performance Test Suite</WorkloadInfo>
+
+	<!-- Single run command (probably a wrapper script), will get passed the full set of parameter name/values; Path must be 
+		relative to the directory containing this manifest.xml -->
+	<Run timeout_offset="180">run/wrapper_script.exe</Run>
+	
+	<!-- Full set of all possible parameters for the automation executable -->
+	<RunParameters>
+		<!-- HTML parameter form definition goes here -->
+	</RunParameters>
+	
+	<!-- Predefined presets of common parameter combinations; Format the parameters as command line arguments to send to setup or automation executables  -->
+	<Presets>
+		<Preset durationPerLoopSec="300" name="HighPerf" value="HighPerf">
+			<setup></setup> <!-- preset defined values for the setup parameters if required -->
+			<run>--runtime=500 --affinity=0,1</run>
+		</Preset>
+		<Preset durationPerLoopSec="360" name="LowPerf" value="LowPerf">
+			<setup></setup> <!-- preset defined values for the setup parameters if required -->
+			<run>--runtime=300 --affinity=0,1</run>
+		</Preset>
+	</Presets>	
+
+	<!-- Compatibile OS listed as key/value pairs; used to filter workloads in the UI; framework can also inforce this check -->
+	<OsCompatibility>
+		<OS>Windows</OS>
+	</OsCompatibility>
+	
+	<!-- Specify if this workload can be run concurrently with other workloads. Allowed values => True or False -->
+	<ConcurrentExecution>False</ConcurrentExecution>
+
+	<!-- Other information the controlling automation framework might need about the test, arranged in key/value pairs; Qualifiers are PPO;VAL;MARGSI;ALL -->
+	<FrameworkDirectives>
+		<Directive name="restart-before-execution" team="PPO">N</Directive>
+		<Directive name="send-global-gfx-settings" team="PPO">Y</Directive> <!-- Use resolution, AA, AF settings sent by ACE in the ini file -->
+		<Directive name="reimage-before-execution" team="PPO">N</Directive> 
+		<Directive name="set-screen-resolution" team="PPO">N</Directive> <!-- Set screen resolution to test resolution -->
+		<Directive name="reimage-if-run" team="PPO">Y</Directive> <!-- System will be reimaged before running the next test  -->
+		<Directive name="use-external-parser" team="PPO">N</Directive> <!-- Use external C# parser to parse results xml file -->
+		<Directive name="batterylife-support" team="PPO">N</Directive>
+	</FrameworkDirectives>
+</Workload>
