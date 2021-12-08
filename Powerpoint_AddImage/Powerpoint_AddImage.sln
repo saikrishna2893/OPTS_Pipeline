@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Powerpoint_AddImage", "Powerpoint_AddImage\Powerpoint_AddImage.csproj", "{14C610B7-E3FB-4DA1-8776-FF139FA9EAD4}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14C610B7-E3FB-4DA1-8776-FF139FA9EAD4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14C610B7-E3FB-4DA1-8776-FF139FA9EAD4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14C610B7-E3FB-4DA1-8776-FF139FA9EAD4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14C610B7-E3FB-4DA1-8776-FF139FA9EAD4}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F4CE6EA7-62A7-474E-B444-EA4CF1543548}
+	EndGlobalSection
+EndGlobal

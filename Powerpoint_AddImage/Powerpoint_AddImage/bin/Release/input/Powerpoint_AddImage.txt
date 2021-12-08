@@ -1,0 +1,9 @@
+--InputFileName ..\\input\\source_presentation.pptx
+--InputImageFile ..\\input\\GettyImage.jpg
+--OutputFileName AddImageResult.pptx
+--Iterations 2
+--TargetSlideNumberList 4,7
+--ImageAdjustingSteps 50
+--TextTypingKeystrokeDelay 50
+-r 2
+-s 2000
