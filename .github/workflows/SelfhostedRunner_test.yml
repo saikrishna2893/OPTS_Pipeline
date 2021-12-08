@@ -33,7 +33,7 @@ jobs:
       
     - name: Setup Release directory
       shell: sh
-      run: .\Compile_testsuite.bat
+      run: .\\Compile_testsuite.bat
       
     #- name: Setup MSBuild Path
       #uses:  microsoft/setup-msbuild@v1.0.2
