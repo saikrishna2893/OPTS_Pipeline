@@ -31,7 +31,10 @@ jobs:
       run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln"
       #run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
       
-    
+    - name: Setup Release directory
+      shell: sh
+      run: ".\\Compile_testsuite.bat"
+      
     #- name: Setup MSBuild Path
       #uses:  microsoft/setup-msbuild@v1.0.2
     
@@ -50,8 +53,5 @@ jobs:
       shell: sh
       run: MSBuild.exe .\\Word_JenkaLoad\\Word_JenkaLoad.sln //p:Configuration=Release //p:Platform="Any CPU"
       
-    - name: Setup Release directory
-      shell: sh
-      run: ".\\Compile_testsuite.bat"
       
 
