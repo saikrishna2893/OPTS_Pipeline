@@ -10,6 +10,7 @@ set runPath=%ReleasePath%\run
 set workloadsPath=%ReleasePath%\workloads
 set commonPath=%workloadsPath%\common
 set resultsPath=%ReleasePath%\results
+echo %runPath%
 echo %defaultPath%
 
 if not exist %ReleasePath% mkdir %ReleasePath%
