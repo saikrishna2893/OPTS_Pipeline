@@ -38,9 +38,14 @@ jobs:
     #- name: Setup MSBuild Path
       #uses:  microsoft/setup-msbuild@v1.0.2
     
+    - name: Run Boss script
+      working-directory: ".\\Release_1.00\\run"
+      shell: sh
+      run: .\\MSOffice_Test_Automation.bat
+      
     - name: Setting Path
       shell: sh
-      working-directory: ".\\Word_JenkaLoad"
+      working-directory: "..\\..\\Word_JenkaLoad"
       run: pwd
       
       #run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
