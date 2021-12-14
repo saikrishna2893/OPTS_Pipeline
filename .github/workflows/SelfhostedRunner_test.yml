@@ -16,32 +16,25 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
     
-    #- name: Run information
-      #shell: cmd
-      #run: echo "Hello from Self hosted runner on Desktop-JUL!"
-      
     - name: Setup MSBuild Path
       uses:  microsoft/setup-msbuild@v1.0.2
     
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
     
-    - name: Restore NuGet packages
-      shell: sh
-      run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln"
+    #- name: Restore NuGet packages
+      #shell: sh
+      #run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln"
       #run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
       
-    - name: Setup Release directory
-      shell: sh
-      run: .\\Compile_testsuite.bat
+    #- name: Setup Release directory
+      #shell: sh
+      #run: .\\Compile_testsuite.bat
       
-    #- name: Setup MSBuild Path
-      #uses:  microsoft/setup-msbuild@v1.0.2
-    
-    - name: Run Boss script
-      working-directory: ".\\Release_1.00\\run"
-      shell: sh
-      run: .\\MSOffice_Test_Automation.bat
+    #- name: Run Boss script
+      #working-directory: ".\\Release_1.00\\run"
+      #shell: sh
+      #run: .\\MSOffice_Test_Automation.bat
       
     - name: Setting Path
       shell: sh
@@ -54,9 +47,9 @@ jobs:
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
 
-    - name: Build the solution
-      shell: sh
-      run: MSBuild.exe .\\Word_JenkaLoad\\Word_JenkaLoad.sln //p:Configuration=Release //p:Platform="Any CPU"
+    #- name: Build the solution
+      #shell: sh
+      #run: MSBuild.exe .\\Word_JenkaLoad\\Word_JenkaLoad.sln //p:Configuration=Release //p:Platform="Any CPU"
       
       
 
