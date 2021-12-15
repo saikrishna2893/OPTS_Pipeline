@@ -29,5 +29,5 @@ jobs:
           
       - uses: actions/upload-artifact@v1
         with:
-          name: my-artifact
+          name: Release_package
           path: ${{ github.workspace }}/Release_1.zip
