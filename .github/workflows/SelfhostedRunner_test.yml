@@ -9,11 +9,7 @@ on:
         default: 'warning'
       tags:
         description: 'Test scenario tags' 
-  #push:
-    #branches: [ main ]
-  #pull_request:
-    #branches: [ main ]
-
+ 
 jobs:
   build:
 
@@ -30,27 +26,14 @@ jobs:
     - name: Setup NuGet
       uses: NuGet/setup-nuget@v1.0.5
     
-    #- name: Restore NuGet packages
-      #shell: sh
-      #run: nuget restore ".\\Word_JenkaLoad\\Word_JenkaLoad.sln"
-      #run: nuget install .\\Word_JenkaLoad\\Word_JenkaLoad\\packages.config -o .\\Word_JenkaLoad\\packages\
-      
-    #- name: Setup Release directory
-      #shell: sh
-      #run: .\\Compile_testsuite.bat
-      
-    #- name: Run Boss script
-      #working-directory: ".\\Release_1.00\\run"
-      #shell: sh
-      #run: .\\MSOffice_Test_Automation.bat
-      
-    - name: Setting Path
+    - name: Setup Release directory
       shell: sh
-      #working-directory: ".\\Word_JenkaLoad"
-      run: pwd
+      run: .\\Compile_testsuite.bat
       
-      #run:  msbuild ".\\Word_JenkaLoad\\Word_JenkaLoad.sln" /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
-      #run: msbuild /m /p:Configuration=${{env.BUILD_CONFIGURATION}} ".\\Word_JenkaLoad.sln"
+    - name: Run Boss script
+      working-directory: ".\\Release_1.00\\run"
+      shell: sh
+      run: .\\MSOffice_Test_Automation.bat
       
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
@@ -58,6 +41,3 @@ jobs:
     #- name: Build the solution
       #shell: sh
       #run: MSBuild.exe .\\Word_JenkaLoad\\Word_JenkaLoad.sln //p:Configuration=Release //p:Platform="Any CPU"
-      
-      
-
