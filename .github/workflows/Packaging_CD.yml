@@ -38,6 +38,7 @@ jobs:
         #env:
           #GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
           #REPO_OWNER: Saikrishna
+        uses: actions/setup-node@v1
         with:
           node-version: 12
           registry-url: https://npm.pkg.github.com/
