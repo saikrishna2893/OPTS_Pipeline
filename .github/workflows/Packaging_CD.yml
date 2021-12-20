@@ -31,3 +31,10 @@ jobs:
         with:
           name: Release_package
           path: ${{ github.workspace }}/Release_1.zip
+          
+      #TOKEN_REPO
+      - name: Bump version and push tag
+        uses: anothrNick/github-tag-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
+          REPO_OWNER: Saikrishna
