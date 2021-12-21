@@ -33,16 +33,11 @@ jobs:
           path: ${{ github.workspace }}/Release_1.zip
           
       #TOKEN_REPO
-      - name: Bump version and push tag
-        #uses: anothrNick/github-tag-action@master
-        #env:
-          #GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
-          #REPO_OWNER: Saikrishna
-        uses: actions/setup-node@v1
-        with:
-          node-version: 12
-          registry-url: https://npm.pkg.github.com/
-      - run: npm ci
-      - run: npm publish
+      - name: Bump version and push tag to releases
+        uses: actions/create-release@v1
         env:
-          NODE_AUTH_TOKEN: ${{secrets.TOKEN_REPO}}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
+          REPO_OWNER: Saikrishna
+        with:
+          tag_name: v${{github.run_number}}
+          release_name: Release Version${{github.run_number}}
