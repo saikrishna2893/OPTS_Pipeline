@@ -35,15 +35,15 @@ jobs:
       shell: sh
       run: echo "::set-output name=version::$(cat .\\Version.txt)"
       
-    - name: Setting Path
-      shell: sh
-      #working-directory: ".\\Release_*\\run"
-      run: echo "${{ steps.getversion.outputs.version }}"
-      
-    #- name: Run Boss script
-      #working-directory: ".\\Release_${{ steps.getversion.outputs.version }}\\run"
+    #- name: Setting Path
       #shell: sh
-      #run: .\\MSOffice_Test_Automation.bat
+      #working-directory: ".\\Release_*\\run"
+      #run: echo "${{ steps.getversion.outputs.version }}"
+      
+    - name: Run Boss script
+      working-directory: ".\\Release_${{ steps.getversion.outputs.version }}\\run"
+      shell: sh
+      run: pwd #.\\MSOffice_Test_Automation.bat
       
       # Add additional options to the MSBuild command line here (like platform or verbosity level).
       # See https://docs.microsoft.com/visualstudio/msbuild/msbuild-command-line-reference
