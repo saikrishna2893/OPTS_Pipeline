@@ -38,14 +38,14 @@ jobs:
     - name: Setting Path
       shell: sh
       env:
-        directory: "Release_${{ steps.getversion.outputs.version }}"
+        directory: "${{ steps.getversion.outputs.version }}"
       #working-directory: ".\\Release_*\\run"
       run: echo ${directory} #"${{ steps.getversion.outputs.version }}"
       
-    - name: Run Boss script
-      working-directory: "./Release_**/run"
+    - name: Run Path
+      working-directory: "./${{ steps.getversion.outputs.version }}/run"
       shell: sh
-      run: pwd #.\\MSOffice_Test_Automation.bat
+      run: pwd
       
     #- name: Run Boss script
       #working-directory: ".\\Release_1.00\\run"
