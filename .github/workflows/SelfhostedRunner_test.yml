@@ -33,7 +33,7 @@ jobs:
     - name: Setup version
       id: getversion
       shell: sh
-      run: echo "::set-output name=version::$(cat .\Version.txt)"
+      run: echo "::set-output name=version::$(cat .\\Version.txt)"
       
     - name: Setting Path
       shell: sh
