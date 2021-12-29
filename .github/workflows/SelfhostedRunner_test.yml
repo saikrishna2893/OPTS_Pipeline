@@ -43,7 +43,7 @@ jobs:
       run: echo ${directory} #"${{ steps.getversion.outputs.version }}"
       
     - name: Run Path
-      working-directory: ".\\${{ steps.getversion.outputs.version }}\\run"
+      working-directory: ".\\Release_1.00\\run"
       shell: sh
       run: pwd
       
