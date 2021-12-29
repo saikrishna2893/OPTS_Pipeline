@@ -30,9 +30,9 @@ jobs:
       #shell: sh
       #run: .\\Compile_testsuite.bat
       
-    - name: Setup version
-      id: getversion
-      run: echo "::set-output name=version::$(cat .\\Version)"
+    #- name: Setup version
+      #id: getversion
+      #run: echo "::set-output name=version::$(cat Version)"
       
     - name: Setting Path
       shell: sh
