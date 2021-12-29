@@ -27,23 +27,23 @@ jobs:
       uses: NuGet/setup-nuget@v1.0.5
     
     - name: Setup Release directory
-      shell: sh
+      #shell: 
       run: .\\Compile_testsuite.bat
       
     - name: Setup version
       id: getversion
-      shell: sh
+      #shell: sh
       run: echo "::set-output name=version::Release_$(cat .\\Version.txt)"
       
     - name: Setting Path
-      shell: sh
+      #shell: sh
       env:
         directory: "${{ steps.getversion.outputs.version }}"
       run: echo ${directory} 
       
     - name: Run Boss script
       working-directory: ".\\${{ steps.getversion.outputs.version }}\\run"
-      shell: sh
+      #shell: sh
       run: .\\MSOffice_Test_Automation.bat
       
     #- name: Build the solution
