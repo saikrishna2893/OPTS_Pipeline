@@ -32,11 +32,11 @@ jobs:
       
     - name: Setup version
       id: getversion
-      run: echo "::set-output name=version::$(cat Version.txt)"
+      run: echo "::set-output name=version::$(cat .\\Version)"
       
     - name: Setting Path
       shell: sh
-      working-directory: ".\\Release_${{ steps.getversion.outputs.version }}\\run"
+      working-directory: ".\\Release_**\\run"
       run: pwd
       
     #- name: Run Boss script
