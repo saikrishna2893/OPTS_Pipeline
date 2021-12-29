@@ -30,13 +30,13 @@ jobs:
       #shell: sh
       #run: .\\Compile_testsuite.bat
       
-    #- name: Setup version
-      #id: getversion
-      #run: echo "::set-output name=version::$(cat Version)"
+    - name: Setup version
+      id: getversion
+      run: echo "cat .\Version.txt" #"::set-output name=version::$(cat Version)"
       
     - name: Setting Path
       shell: sh
-      working-directory: ".\\Release_**\\run"
+      working-directory: ".\\Release_*\\run"
       run: pwd
       
     #- name: Run Boss script
