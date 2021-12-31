@@ -1,4 +1,4 @@
-name: SelfhostedRunner Test
+name: OPTS_Full Test
 #Defining the "On" using manual trigger
 on:
   workflow_dispatch:
