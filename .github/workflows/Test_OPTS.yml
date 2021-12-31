@@ -1,0 +1,37 @@
+name: CI Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: [self-hosted]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+    
+    - name: Setup MSBuild Path
+      uses:  microsoft/setup-msbuild@v1.0.2
+    
+    - name: Setup NuGet
+      uses: NuGet/setup-nuget@v1.0.5
+    
+    - name: Setup Release directory
+      #shell: cmd
+      run: ".\\Compile_testsuite.bat"
+    
+    - name: Setup version
+      id: getversion
+      #shell: sh
+      run: echo "::set-output name=version::Release_$(cat .\\Version.txt)"
+      
+    - name: Run Boss script
+      working-directory: ".\\${{ steps.getversion.outputs.version }}\\run"
+      #shell: sh
+      run: .\\MSOffice_Test_Automation.bat Excel_Sort Powerpoint_AddImage Word_FindReplace Outlook_AddContacts
