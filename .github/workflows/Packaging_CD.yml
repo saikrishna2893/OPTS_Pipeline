@@ -49,12 +49,13 @@ jobs:
       #TOKEN_REPO
       - name: Bump version and push tag to releases
         uses: actions/create-release@v1
+        id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
           REPO_OWNER: Saikrishna
         with:
-          #tag_name: v${{github.run_number}}
-          tag_name: ${{steps.create_release.outputs.string}}
+          tag_name: v${{github.run_number}}
+          #tag_name: ${{steps.create_release.outputs.string}}
           release_name: Release Version${{github.run_number}}
          
       - name: upload windows artifact 
