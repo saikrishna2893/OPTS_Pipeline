@@ -33,7 +33,9 @@ jobs:
         #shell: sh
         run: echo "::set-output name=version::Release_$(cat .\\Version.txt)"
       
-      - uses: papeloto/action-zip@v1
+      - name: Easy Zip Files
+        uses: vimtor/action-zip@v1
+      #- uses: papeloto/action-zip@v1
         with:
           files: .\\${{ steps.getversion.outputs.version }}
           recursive: true
@@ -45,22 +47,22 @@ jobs:
           path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
           
       #TOKEN_REPO
-      #- name: Bump version and push tag to releases
-        #uses: actions/create-release@v1
-        #env:
-          #GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
-          #REPO_OWNER: Saikrishna
-        #with:
-          ##tag_name: v${{github.run_number}}
-          #tag_name: ${{steps.create_release.outputs.string}}
-          #release_name: Release Version${{github.run_number}}
+      - name: Bump version and push tag to releases
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
+          REPO_OWNER: Saikrishna
+        with:
+          #tag_name: v${{github.run_number}}
+          tag_name: ${{steps.create_release.outputs.string}}
+          release_name: Release Version${{github.run_number}}
          
-      #- name: upload windows artifact 
-        #uses: actions/upload-release-asset@v1
-        #env:
-          #GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
-        #with:
-          #upload_url: ${{ steps.create_release.outputs.upload_url }}
-          #asset_path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
-          #asset_name: ${{ steps.getversion.outputs.version }}.zip
-          #asset_content_type: application/zip
+      - name: upload windows artifact 
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
+          asset_name: ${{ steps.getversion.outputs.version }}.zip
+          asset_content_type: application/zip
