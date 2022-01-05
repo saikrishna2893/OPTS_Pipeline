@@ -2,9 +2,6 @@ name: Publishing Package
 
 on:
   workflow_dispatch:
-    inputs:
-      tags:
-        description: 'Publishing package' 
 
 jobs:
   zip-files:
@@ -21,12 +18,10 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
         
       - name: Setup Release directory
-        #shell: cmd
         run: .\\Compile_testsuite.bat
         
       - name: Setup version
         id: getversion
-        #shell: sh
         run: echo "::set-output name=version::Release_$(cat .\\Version.txt)"
       
       - name: Easy Zip Files
@@ -42,7 +37,7 @@ jobs:
           name: Release_package
           path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
           
-      #TOKEN_REPO
+      #TOKEN_REPO to be created (Personal Access Token)
       - name: Bump version and push tag to releases
         uses: actions/create-release@v1
         id: create_release
