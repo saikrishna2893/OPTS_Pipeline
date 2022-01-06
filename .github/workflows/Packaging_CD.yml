@@ -1,14 +1,7 @@
-name: Publishing Release Package
+name: Publishing Package
 
 on:
   workflow_dispatch:
-    inputs:
-      logLevel:
-        description: 'Packages Release files'     
-        required: true
-        default: 'warning'
-      tags:
-        description: 'Tags artifact files to Releases' 
 
 jobs:
   zip-files:
@@ -25,14 +18,12 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
         
       - name: Setup Release directory
-        #shell: cmd
         run: .\\Compile_testsuite.bat
         
       - name: Setup version
         id: getversion
-        #shell: sh
         run: echo "::set-output name=version::Release_$(cat .\\Version.txt)"
-        
+      
       - name: Easy Zip Files
         uses: vimtor/action-zip@v1
       #- uses: papeloto/action-zip@v1
@@ -46,19 +37,20 @@ jobs:
           name: Release_package
           path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
           
-      - name: Create release and upload-artifact to release
+      #TOKEN_REPO to be created (Personal Access Token)
+      - name: Bump version and push tag to releases
+        uses: actions/create-release@v1
         id: create_release
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }} #To provide token for the repository to access.
-          REPO_OWNER: Saikrishna
+          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
         with:
           tag_name: v${{github.run_number}}
           release_name: Release Version${{github.run_number}}
          
-      - name: upload artifact to Releases 
+      - name: upload windows artifact 
         uses: actions/upload-release-asset@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }} #To provide token for the repository to access.
+          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
