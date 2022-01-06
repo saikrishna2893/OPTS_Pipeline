@@ -36,23 +36,9 @@ jobs:
         with:
           name: Release_package
           path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
-          
-      #TOKEN_REPO to be created (Personal Access Token)
-      - name: Bump version and push tag to releases
-        uses: actions/create-release@v1
-        id: create_release
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
+     
+      - name: Upload Release
+        uses: ncipollo/release-action@v1
         with:
-          tag_name: v${{github.run_number}}
-          release_name: Release Version${{github.run_number}}
-         
-      - name: upload windows artifact 
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
-          asset_name: ${{ steps.getversion.outputs.version }}.zip
-          asset_content_type: application/zip
+          artifacts: "${{ steps.getversion.outputs.version }}.zip"
+          token: ${{ secrets.TOKEN_REPO }}
