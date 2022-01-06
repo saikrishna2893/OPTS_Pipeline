@@ -37,25 +37,29 @@ jobs:
           name: Release_package
           path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
      
-      #TOKEN_REPO to be created (Personal Access Token)
-      - name: Bump version and push tag to releases
-        uses: actions/create-release@v1
-        id: create_release
+      - name: Get release
+        id: get_release
+        uses: agners/get-draft-release@v0.1.0
         env:
-          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
-        with:
-          tag_name: v${{github.run_number}}
-          release_name: Release Version${{github.run_number}}
+          GITHUB_TOKEN: ${{ secret.TOKEN_REPO }}
+          
+      #TOKEN_REPO to be created (Personal Access Token)
+      #- name: Bump version and push tag to releases
+        #uses: actions/create-release@v1
+        #id: create_release
+        #env:
+          #GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
+        #with:
+          #tag_name: v${{github.run_number}}
+          #release_name: Release Version${{github.run_number}}
      
-      - name: Release_URL
-        run: echo ${{ steps.create_release.outputs.upload_url }}
-        
       - name: upload windows artifact 
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
         with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          #upload_url: ${{ steps.create_release.outputs.upload_url }}
+          upload_url: ${{ steps.get_release.outputs.upload_url }}
           asset_path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
           asset_name: ${{ steps.getversion.outputs.version }}.zip
           asset_content_type: application/zip
