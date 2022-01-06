@@ -46,8 +46,10 @@ jobs:
         with:
           tag_name: v${{github.run_number}}
           release_name: Release Version${{github.run_number}}
-          run: echo ${{ steps.create_release.outputs.upload_url }}
-         
+     
+      - name: Release_URL
+        run: echo ${{ steps.create_release.outputs.upload_url }}
+        
       - name: upload windows artifact 
         uses: actions/upload-release-asset@v1
         env:
