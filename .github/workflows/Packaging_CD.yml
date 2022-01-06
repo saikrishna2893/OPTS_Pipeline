@@ -41,7 +41,7 @@ jobs:
         id: get_release
         uses: agners/get-draft-release@v0.1.0
         env:
-          GITHUB_TOKEN: ${{ secret.TOKEN_REPO }}
+          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
           
       #TOKEN_REPO to be created (Personal Access Token)
       #- name: Bump version and push tag to releases
