@@ -1,0 +1,14 @@
+#Input file
+-i ..\input\Monte_Cristo_original_small.docx
+-o InsertEnvelopeOutput_Custom1.docx
+-n 4
+--FromAddress "Jack,Down St,California,USA.David,Victoria St,New York,USA"
+--ToAddress "Smith,South St,New York,USA.Mitch,3rd St,California,USA"
+
+-i ..\input\Monte_Cristo_original_small.docx
+-o InsertEnvelopeOutput_Custom2.docx
+-n 1
+-p 2000
+--FromAddress "MCW,DLF,Chennai,Tamil Nadu"
+--ToAddress "AMD,Tidel Park,Bangalore,Karnataka"
+-r 5
