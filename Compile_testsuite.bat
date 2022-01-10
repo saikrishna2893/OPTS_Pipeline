@@ -42,6 +42,8 @@ REM Print Workload path
 	nuget install !workloadPath!\%%~nxw\packages.config -o !workloadPath!\packages\
 	echo !workloadPath!\%%~nxw.sln
 	msbuild !workloadPath!\%%~nxw.sln /t:Rebuild /p:Configuration=Release /p:Platform="Any CPU"
+	echo "ERROR_LEVEL" !errorlevel!
+	if not !errorlevel!==0 (exit /b !errorlevel!)
 	set exePath=!workloadPath!\%%~nxw\bin\Release\Executable
 
 	if not exist !workloadsPath!\%%~nxw\bin mkdir !workloadsPath!\%%~nxw\bin
