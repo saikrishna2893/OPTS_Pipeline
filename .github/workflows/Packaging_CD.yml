@@ -37,24 +37,15 @@ jobs:
           name: Release_package
           path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
      
-      - name: Get release
-        id: get_release
-        #uses: bruceadams/get-release@v1.2.3
-        uses: joutvhu/get-release@v1
-        with:
-          debug: true
+      #TOKEN_REPO to be created (Personal Access Token)
+      - name: Bump version and push tag to releases
+        uses: actions/create-release@v1
+        id: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
-          
-      #TOKEN_REPO to be created (Personal Access Token)
-      #- name: Bump version and push tag to releases
-        #uses: actions/create-release@v1
-        #id: create_release
-        #env:
-          #GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
-        #with:
-          #tag_name: v${{github.run_number}}
-          #release_name: Release Version${{github.run_number}}
+        with:
+          tag_name: v${{github.run_number}}
+          release_name: Release Version${{github.run_number}}
      
       - name: upload windows artifact 
         uses: actions/upload-release-asset@v1
