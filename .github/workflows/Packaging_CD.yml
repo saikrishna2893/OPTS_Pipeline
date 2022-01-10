@@ -18,7 +18,12 @@ jobs:
         uses: NuGet/setup-nuget@v1.0.5
         
       - name: Setup Release directory
+        id: Release_directory
         run: .\\Compile_testsuite.bat
+        
+      - name: Check on failures
+        if: steps.Release_directory.outputs.status == 'failure'
+        run: exit 1
         
       - name: Setup version
         id: getversion
