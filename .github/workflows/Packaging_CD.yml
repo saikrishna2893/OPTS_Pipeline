@@ -22,7 +22,7 @@ jobs:
         run: .\\Compile_testsuite.bat
         
       - name: Check on failures
-        if: steps.Release_directory.outputs.status == 'failure'
+        if: (${{ success() }} || ${{ failure() }}) && (${{ steps.Release_directory.outcome }} == 'failure')
         run: exit 1
         
       - name: Setup version
