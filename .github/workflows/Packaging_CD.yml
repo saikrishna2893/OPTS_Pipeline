@@ -21,8 +21,7 @@ jobs:
         id: Release_directory
         run: |
             .\\Compile_testsuite.bat
-            echo %ERRORLEVEL%
-            if: (%ERRORLEVEL% != 0) ${{ steps.Release_directory.outcome }} == 'failure'
+        continue-on-error: false
         
       - name: Check on failures
         if: (${{ steps.Release_directory.outcome }} == 'failure')
