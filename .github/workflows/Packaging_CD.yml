@@ -20,12 +20,13 @@ jobs:
       - name: Setup Release directory
         id: Release_directory
         run: |
-            .\\Compile_testsuite.bat
+            .\\Compile_testsuite.bat > Build_output.txt
+            echo "::set-output name=build_output::$(findstr /i /c:"failed" .\\Build_output.txt)"
         continue-on-error: false
         
       - name: Check on failures
-        if: (${{ steps.Release_directory.outcome }} == 'failure')
-        run: echo ${{steps.Release_directory.outcome}} #exit 1
+        #if: (${{ steps.Release_directory.outputs.build_output }} ==0 )
+        run: echo ${{steps.Release_directory.outputs.build_output}} #exit 1
         
       - name: Setup version
         id: getversion
