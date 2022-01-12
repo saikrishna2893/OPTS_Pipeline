@@ -25,8 +25,8 @@ jobs:
         #continue-on-error: false
         
       - name: Check on failures
-        #if: (${{ steps.Release_directory.outputs.build_output }} ==0 )
-        run: echo ${{steps.Release_directory.outputs.build_output}} #exit 1
+        if: (!IsNullOrEmpty(${{ steps.Release_directory.outputs.build_output }}))
+        run: exit 1
         
       - name: Setup version
         id: getversion
