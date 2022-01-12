@@ -22,11 +22,12 @@ jobs:
         run: |
             .\\Compile_testsuite.bat > Build_output.txt
             echo "::set-output name=build_output::$(Select-String -Path .\\Build_output.txt -Pattern 'Failed')"
+            echo "${{ steps.Release_directory.outputs.build_output }}"
         #continue-on-error: false
         
       - name: Check on failures
-        if: (!IsNullOrEmpty(${{ steps.Release_directory.outputs.build_output }}))
-        run: exit 1
+        if: ${{ steps.Release_directory.outputs.build_output }}
+        run:  exit 1 #echo "${{ steps.Release_directory.outputs.build_output }}" #exit 1
         
       - name: Setup version
         id: getversion
