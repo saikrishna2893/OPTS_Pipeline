@@ -22,18 +22,19 @@ jobs:
         run: |
             .\\Compile_testsuite.bat > Build_output.txt
             echo "::set-output name=build_output::$(Select-String -Path .\\Build_output.txt -Pattern 'Failed')"
-            echo "${{ steps.Release_directory.outputs.build_output }}"
-        #continue-on-error: false
         
       - name: Check on failures
         if: ${{ steps.Release_directory.outputs.build_output }}
-        run:  exit 1 #echo "${{ steps.Release_directory.outputs.build_output }}" #exit 1
-        
+        run:  |
+              echo "${{ steps.Release_directory.outputs.build_output }}"
+              exit 1
+        continue-on-error: false
+
       - name: Setup version
         id: getversion
         run: echo "::set-output name=version::Release_$(cat .\\Version.txt)"
       
-      - name: Easy Zip Files
+      - name: Easy Zip Files creation
         uses: vimtor/action-zip@v1
       #- uses: papeloto/action-zip@v1
         with:
@@ -47,7 +48,7 @@ jobs:
           path: ${{ github.workspace }}/${{ steps.getversion.outputs.version }}.zip
      
       #TOKEN_REPO to be created (Personal Access Token)
-      - name: Bump version and push tag to releases
+      - name: Push tag/packages to releases
         uses: actions/create-release@v1
         id: create_release
         env:
@@ -56,7 +57,7 @@ jobs:
           tag_name: v${{github.run_number}}
           release_name: Release Version${{github.run_number}}
      
-      - name: upload windows artifact 
+      - name: upload zip file to releases 
         uses: actions/upload-release-asset@v1
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
