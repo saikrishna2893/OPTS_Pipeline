@@ -1,37 +1,40 @@
-name: CI Test
-
-on:
+name: Quick Test
+'on':
   push:
-    branches: [ main ]
+    branches:
+      - main
   pull_request:
-    branches: [ main ]
-
+    branches:
+      - main
 jobs:
   build:
-
-    runs-on: [self-hosted]
-
+    runs-on:
+      - self-hosted
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-    
-    - name: Setup MSBuild Path
-      uses:  microsoft/setup-msbuild@v1.0.2
-    
-    - name: Setup NuGet
-      uses: NuGet/setup-nuget@v1.0.5
-    
-    - name: Setup Release directory
-      #shell: cmd
-      run: ".\\Compile_testsuite.bat"
-    
-    - name: Setup version
-      id: getversion
-      #shell: sh
-      run: echo "::set-output name=version::Release_$(cat .\\Version.txt)"
-      
-    - name: Run Boss script
-      working-directory: ".\\${{ steps.getversion.outputs.version }}\\run"
-      #shell: sh
-      run: .\\MSOffice_Test_Automation.bat Excel_Sort Powerpoint_AddImage Word_FindReplace Outlook_AddContacts
+      - uses: actions/checkout@v2
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+      - name: Setup MSBuild Path
+        uses: microsoft/setup-msbuild@v1.0.2
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+      - name: Setup Release directory
+        id: Release_directory
+        run: |
+          .\\Compile_testsuite.bat > Build_output.txt
+          echo "::set-output name=build_output::$(Select-String -Path .\\Build_output.txt -Pattern 'Failed')"
+          
+      - name: Check on failures
+        if: '${{ steps.Release_directory.outputs.build_output }}'
+        run: |
+          echo "${{ steps.Release_directory.outputs.build_output }}"
+          exit 1
+        continue-on-error: false
+        
+      - name: Setup version
+        id: getversion
+        run: 'echo "::set-output name=version::Release_$(cat .\\Version.txt)"'
+        
+      - name: Run Boss script and test a workload from each application
+        working-directory: '.\${{ steps.getversion.outputs.version }}\run'
+        run: .\\MSOffice_Test_Automation.bat Excel_Sort Word_JenkaLoad
