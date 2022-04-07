@@ -35,14 +35,15 @@ jobs:
       #  run:  |
       #       .\\PreBuild.bat
 
+        #echo "::set-output name=version::$(cat .\\Version.txt)"
+
       - name: Setup version and tag
         id: getversion
         run: |
-      #    echo "::set-output name=version::$(cat .\\Version.txt)"
           $TAG_CURRENT=$(git describe --tags --abbrev=0)
           echo "::set-output name=tag::$TAG_CURRENT"
-	  $TAG_CURRENT=$TAG_CURRENT -replace '[v]'
-	  echo $TAG_CURRENT > .\\Version.txt
+          $TAG_CURRENT=$TAG_CURRENT -replace '[v]'
+          echo $TAG_CURRENT > .\\Version.txt
       
       - name: Zip File creation
         uses: vimtor/action-zip@v1
