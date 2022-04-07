@@ -1,0 +1,78 @@
+name: Publishing Package new
+
+on:
+  workflow_dispatch:
+
+jobs:
+  zip-files:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v3
+        
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v1
+    
+      - name: Setup MSBuild Path
+        uses:  microsoft/setup-msbuild@v1.0.2
+    
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.5
+        
+      - name: Setup Release directory
+        id: Release_directory
+        run: |
+            .\\Compile_testsuite.bat > Build_output.txt
+            echo "::set-output name=build_output::$(Select-String -Path .\\Build_output.txt -Pattern 'Failed')"
+        
+      - name: Check on failures
+        if: ${{ steps.Release_directory.outputs.build_output }}
+        run:  |
+             echo "${{ steps.Release_directory.outputs.build_output }}"
+             exit 1
+        continue-on-error: false
+        
+      #- name: PreBuild
+      #  run:  |
+      #       .\\PreBuild.bat
+
+      - name: Setup version and tag
+        id: getversion
+        run: |
+      #    echo "::set-output name=version::$(cat .\\Version.txt)"
+          $TAG_CURRENT=$(git describe --tags --abbrev=0)
+          echo "::set-output name=tag::$TAG_CURRENT"
+	  $TAG_CURRENT=$TAG_CURRENT -replace '[v]'
+	  echo $TAG_CURRENT > .\\Version.txt
+      
+      - name: Zip File creation
+        uses: vimtor/action-zip@v1
+        #uses: papeloto/action-zip@v1
+        with:
+          files: .\\Release_${{ steps.getversion.outputs.version }}
+          recursive: true
+          dest: Release_${{ steps.getversion.outputs.version }}.zip
+          
+      #- uses: actions/upload-artifact@v1
+      #  with:
+      #    name: Release_package
+      #    path: ${{ github.workspace }}/Release_${{ steps.getversion.outputs.version }}.zip
+          
+      #TOKEN_REPO to be created (Personal Access Token)
+      - name: Release creation and push tag to releases
+        uses: actions/create-release@v1
+        id: create_release
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
+        with:
+          tag_name: ${{ steps.getversion.outputs.tag }}
+          release_name: Release Version${{ steps.getversion.outputs.version }}
+         
+      - name: upload windows artifact to releases
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }}
+          asset_path: ${{ github.workspace }}/Release_${{ steps.getversion.outputs.version }}.zip
+          asset_name: Release_${{ steps.getversion.outputs.version }}.zip
+          asset_content_type: application/zip

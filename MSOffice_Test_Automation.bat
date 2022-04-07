@@ -11,7 +11,8 @@ Set inputtxtfile=..\\input\\
 set CmdLine=
 set wprbinary="wpr.exe"
 SET "timestamp=%date:~10,4%%date:~4,2%%date:~7,2%-%time:~0,2%%time:~3,2%%time:~6,2%"
-SET "workloadoutputdir=..\\..\\results\\"
+SET "workloadoutputdir=..\\..\\results_%timestamp%\\"
+echo %workloadUserProvidedDir%
 SET "savedir=OPTS-%timestamp%"
 SET savedir=%savedir: =%
 set Identifier="*Excel_*","*Word_*","*Powerpoint_*","*Outlook_*"
@@ -59,7 +60,7 @@ set "onMeasureStart="
 set "onMeasureStop="
 set "resultsDirectory="
 
-
+if not exist %workloadoutputdir% mkdir %workloadoutputdir%
 !mkdir ..\\results\\%csvresultfolder%
 !mkdir ..\\results\\%logresultfolder%
 
