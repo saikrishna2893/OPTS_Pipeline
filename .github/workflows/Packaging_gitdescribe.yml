@@ -1,4 +1,4 @@
-name: Publishing Package new
+name: Publishing Package
 
 on:
   workflow_dispatch:
