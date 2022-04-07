@@ -20,6 +20,14 @@ jobs:
       - name: Setup NuGet
         uses: NuGet/setup-nuget@v1.0.5
         
+      - name: Setup version and tag
+        id: getversion
+        run: |
+          $TAG_CURRENT=$(git describe --tags --abbrev=0)
+          echo "::set-output name=tag::$TAG_CURRENT"
+          $TAG_CURRENT=$TAG_CURRENT -replace '[v]'
+          echo $TAG_CURRENT > .\\Version.txt
+      
       - name: Setup Release directory
         id: Release_directory
         run: |
@@ -39,14 +47,6 @@ jobs:
 
         #echo "::set-output name=version::$(cat .\\Version.txt)"
 
-      - name: Setup version and tag
-        id: getversion
-        run: |
-          $TAG_CURRENT=$(git describe --tags --abbrev=0)
-          echo "::set-output name=tag::$TAG_CURRENT"
-          $TAG_CURRENT=$TAG_CURRENT -replace '[v]'
-          echo $TAG_CURRENT > .\\Version.txt
-      
       - name: Zip File creation
         uses: vimtor/action-zip@v1
         #uses: papeloto/action-zip@v1
