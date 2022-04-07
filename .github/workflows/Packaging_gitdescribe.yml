@@ -26,6 +26,7 @@ jobs:
           $TAG_CURRENT=$(git describe --tags --abbrev=0)
           echo "::set-output name=tag::$TAG_CURRENT"
           $TAG_CURRENT=$TAG_CURRENT -replace '[v]'
+          echo "::set-output name=version::$TAG_CURRENT"
           echo $TAG_CURRENT > .\\Version.txt
       
       - name: Setup Release directory
