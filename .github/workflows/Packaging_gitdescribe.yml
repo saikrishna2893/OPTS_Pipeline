@@ -1,4 +1,4 @@
-name: Publishing Package v2
+name: Publishing Package
 
 on:
   workflow_dispatch:
@@ -43,24 +43,13 @@ jobs:
              exit 1
         continue-on-error: false
         
-      #- name: PreBuild
-      #  run:  |
-      #       .\\PreBuild.bat
-
-        #echo "::set-output name=version::$(cat .\\Version.txt)"
-
       - name: Zip File creation
         uses: vimtor/action-zip@v1
         #uses: papeloto/action-zip@v1
         with:
           files: .\\Release_${{ steps.getversion.outputs.version }}
           recursive: true
-          dest: Release_${{ steps.getversion.outputs.version }}.zip
-          
-      #- uses: actions/upload-artifact@v1
-      #  with:
-      #    name: Release_package
-      #    path: ${{ github.workspace }}/Release_${{ steps.getversion.outputs.version }}.zip
+          dest: OPTS_${{ steps.getversion.outputs.version }}.zip
           
       #TOKEN_REPO to be created (Personal Access Token)
       - name: Release creation and push tag to releases
@@ -70,7 +59,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
         with:
           tag_name: ${{ steps.getversion.outputs.tag }}
-          release_name: Release Version${{ steps.getversion.outputs.version }}
+          release_name: OPTS_${{ steps.getversion.outputs.version }}
          
       - name: upload windows artifact to releases
         uses: actions/upload-release-asset@v1
@@ -78,6 +67,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.TOKEN_REPO }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ${{ github.workspace }}/Release_${{ steps.getversion.outputs.version }}.zip
-          asset_name: Release_${{ steps.getversion.outputs.version }}.zip
+          asset_path: ${{ github.workspace }}/OPTS_${{ steps.getversion.outputs.version }}.zip
+          asset_name: OPTS_${{ steps.getversion.outputs.version }}.zip
           asset_content_type: application/zip
